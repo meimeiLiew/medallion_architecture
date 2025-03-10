@@ -1,0 +1,121 @@
+version: 2
+
+models:
+  - name: contracts_silver
+    description: "Cleaned and transformed contracts data"
+    columns:
+      - name: contract_id
+        description: "Unique identifier for the contract"
+        tests:
+          - unique
+          - not_null
+      - name: contract_name
+        description: "Name of the contract"
+        tests:
+          - not_null
+      - name: client_name
+        description: "Name of the client"
+      - name: start_date
+        description: "Start date of the contract"
+        tests:
+          - not_null
+      - name: end_date
+        description: "End date of the contract"
+        tests:
+          - not_null
+      - name: contract_value
+        description: "Value of the contract"
+        tests:
+          - not_null
+      - name: contract_status
+        description: "Status of the contract"
+        tests:
+          - not_null
+      - name: processed_at
+        description: "Timestamp when the record was processed"
+        tests:
+          - not_null
+
+  - name: budgets_silver
+    description: "Cleaned and transformed budgets data"
+    columns:
+      - name: budget_id
+        description: "Unique identifier for the budget"
+        tests:
+          - unique
+          - not_null
+      - name: budget_name
+        description: "Name of the budget"
+        tests:
+          - not_null
+      - name: contract_id
+        description: "Foreign key to the contract"
+        tests:
+          - not_null
+      - name: budget_code
+        description: "Code of the budget"
+      - name: budget_scope
+        description: "Scope of the budget"
+      - name: planned_start_date
+        description: "Planned start date of the budget"
+      - name: planned_end_date
+        description: "Planned end date of the budget"
+      - name: actual_start_date
+        description: "Actual start date of the budget"
+      - name: actual_end_date
+        description: "Actual end date of the budget"
+      - name: original_amount
+        description: "Original amount of the budget"
+      - name: actual_cost
+        description: "Actual cost of the budget"
+      - name: created_at
+        description: "Timestamp when the budget was created"
+      - name: updated_at
+        description: "Timestamp when the budget was last updated"
+      - name: processed_at
+        description: "Timestamp when the record was processed"
+        tests:
+          - not_null
+
+  - name: change_orders_silver
+    description: "Cleaned and transformed change orders data"
+    columns:
+      - name: change_order_id
+        description: "Unique identifier for the change order"
+        tests:
+          - unique
+          - not_null
+      - name: change_order_number
+        description: "Number of the change order"
+      - name: change_order_name
+        description: "Name of the change order"
+        tests:
+          - not_null
+      - name: change_order_scope
+        description: "Scope of the change order"
+      - name: change_order_type
+        description: "Type of the change order"
+      - name: contract_id
+        description: "Foreign key to the contract"
+        tests:
+          - not_null
+      - name: estimated_amount
+        description: "Estimated amount of the change order"
+      - name: proposed_amount
+        description: "Proposed amount of the change order"
+      - name: submitted_amount
+        description: "Submitted amount of the change order"
+      - name: approved_amount
+        description: "Approved amount of the change order"
+      - name: committed_amount
+        description: "Committed amount of the change order"
+      - name: created_at
+        description: "Timestamp when the change order was created"
+      - name: updated_at
+        description: "Timestamp when the change order was last updated"
+      - name: status_changed_at
+        description: "Timestamp when the status of the change order was last changed"
+      - name: processed_at
+        description: "Timestamp when the record was processed"
+        tests:
+          - not_null 

@@ -1,0 +1,90 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=airflow
+      - POSTGRES_PASSWORD=airflow
+      - POSTGRES_DB=airflow
+    volumes:
+      - postgres-db-volume:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "airflow"]
+      interval: 5s
+      retries: 5
+    restart: always
+
+  airflow-webserver:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      - LOAD_EX=n
+      - EXECUTOR=Local
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+      - AIRFLOW__CORE__FERNET_KEY=46BKJoQYlPPOexq0OhDZnIlNepKFf87WFwLbfzqDDho=
+      - AIRFLOW__CORE__DAGS_FOLDER=/opt/airflow/dags
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - AIRFLOW__WEBSERVER__EXPOSE_CONFIG=True
+      - AIRFLOW__WEBSERVER__RBAC=False
+      - PYTHONPATH=/opt/airflow
+      - DBT_PROFILES_DIR=/opt/airflow/silver_layer/transformations/profiles
+      - GOOGLE_APPLICATION_CREDENTIALS=/opt/airflow/medallion-dev-6a948fd7a82c.json
+    volumes:
+      - ./orchestration/airflow/dags:/opt/airflow/dags
+      - ./orchestration/airflow/config:/opt/airflow/config
+      - ./bronze:/opt/airflow/bronze
+      - ./silver_layer:/opt/airflow/silver_layer
+      - ./gold_layer:/opt/airflow/gold_layer
+      - ./tests:/opt/airflow/tests
+      - ./.env:/opt/airflow/.env
+      - ./medallion-dev-6a948fd7a82c.json:/opt/airflow/medallion-dev-6a948fd7a82c.json
+      - ./docker/entrypoint.sh:/entrypoint.sh
+      - ./docker/validate_data.sh:/opt/airflow/docker/validate_data.sh
+    ports:
+      - "8080:8080"
+    entrypoint: ["/entrypoint.sh"]
+    command: webserver
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+  airflow-scheduler:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      - LOAD_EX=n
+      - EXECUTOR=Local
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+      - AIRFLOW__CORE__FERNET_KEY=46BKJoQYlPPOexq0OhDZnIlNepKFf87WFwLbfzqDDho=
+      - AIRFLOW__CORE__DAGS_FOLDER=/opt/airflow/dags
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - PYTHONPATH=/opt/airflow
+      - DBT_PROFILES_DIR=/opt/airflow/silver_layer/transformations/profiles
+      - GOOGLE_APPLICATION_CREDENTIALS=/opt/airflow/medallion-dev-6a948fd7a82c.json
+    volumes:
+      - ./orchestration/airflow/dags:/opt/airflow/dags
+      - ./orchestration/airflow/config:/opt/airflow/config
+      - ./bronze:/opt/airflow/bronze
+      - ./silver_layer:/opt/airflow/silver_layer
+      - ./gold_layer:/opt/airflow/gold_layer
+      - ./tests:/opt/airflow/tests
+      - ./.env:/opt/airflow/.env
+      - ./medallion-dev-6a948fd7a82c.json:/opt/airflow/medallion-dev-6a948fd7a82c.json
+      - ./docker/entrypoint.sh:/entrypoint.sh
+      - ./docker/validate_data.sh:/opt/airflow/docker/validate_data.sh
+    entrypoint: ["/entrypoint.sh"]
+    command: scheduler
+
+volumes:
+  postgres-db-volume: 

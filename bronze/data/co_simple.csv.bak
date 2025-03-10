@@ -1,0 +1,6 @@
+id,number,name,scope,type,contractId,estimated,proposed,submitted,approved,committed,createdAt,updatedAt,statusChangedAt
+CO001,0001,Change Order 1,in,Schedule Of Rates,6ace6f70-036b-4af0-bee6-e4296c5e7e4f,10000,10000,10000,10000,10000,2024-01-15,2024-01-20,2024-01-25
+CO002,0002,Change Order 2,out,Subcontract Variation Order,54c38b9b-73ee-40b8-9af5-f25eaa8ff342,15000,15000,15000,15000,15000,2024-02-15,2024-02-20,2024-02-25
+CO003,0003,Change Order 3,in,Schedule Of Rates,0210143a-a61a-4b5e-9378-30d2cbda8e45,20000,20000,20000,20000,20000,2024-03-15,2024-03-20,2024-03-25
+CO004,0004,Change Order 4,out,Subcontract Variation Order,ad1ed4a6-0f1d-44d9-b0c7-547e4ed1aa3d,25000,25000,25000,25000,25000,2024-04-15,2024-04-20,2024-04-25
+CO005,0005,Change Order 5,in,Schedule Of Rates,57a1ef99-efc4-4633-b5cf-9669719fc07e,30000,30000,30000,30000,30000,2024-05-15,2024-05-20,2024-05-25 

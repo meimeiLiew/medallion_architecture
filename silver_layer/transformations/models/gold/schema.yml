@@ -1,0 +1,302 @@
+version: 2
+
+models:
+  - name: contract_analytics
+    description: "Contract analytics for business insights"
+    columns:
+      - name: client_name
+        description: "Name of the client"
+        tests:
+          - unique
+          - not_null
+      - name: total_contracts
+        description: "Total number of contracts for the client"
+        tests:
+          - not_null
+      - name: total_contract_value
+        description: "Total value of all contracts for the client"
+        tests:
+          - not_null
+      - name: avg_contract_value
+        description: "Average value of contracts for the client"
+        tests:
+          - not_null
+      - name: min_contract_value
+        description: "Minimum value of contracts for the client"
+        tests:
+          - not_null
+      - name: max_contract_value
+        description: "Maximum value of contracts for the client"
+        tests:
+          - not_null
+      - name: avg_contract_duration_days
+        description: "Average duration of contracts in days"
+        tests:
+          - not_null
+      - name: processed_at
+        description: "Timestamp when the record was processed"
+        tests:
+          - not_null
+
+  - name: project_analytics
+    description: "Project analytics for business insights"
+    columns:
+      - name: contract_id
+        description: "Unique identifier for the contract"
+        tests:
+          - unique
+          - not_null
+      - name: contract_name
+        description: "Name of the contract"
+        tests:
+          - not_null
+      - name: contract_status
+        description: "Status of the contract"
+        tests:
+          - not_null
+      - name: contract_value
+        description: "Value of the contract"
+        tests:
+          - not_null
+      - name: start_date
+        description: "Start date of the contract"
+        tests:
+          - not_null
+      - name: end_date
+        description: "End date of the contract"
+        tests:
+          - not_null
+      - name: adjusted_contract_value
+        description: "Contract value adjusted for change orders"
+        tests:
+          - not_null
+      - name: budget_count
+        description: "Number of budgets for the contract"
+        tests:
+          - not_null
+      - name: total_original_budget
+        description: "Total original budget for the contract"
+        tests:
+          - not_null
+      - name: total_actual_cost
+        description: "Total actual cost for the contract"
+        tests:
+          - not_null
+      - name: budget_variance
+        description: "Variance between original budget and actual cost"
+        tests:
+          - not_null
+      - name: budget_utilization_percentage
+        description: "Percentage of budget utilized"
+        tests:
+          - not_null
+      - name: change_order_count
+        description: "Number of change orders for the contract"
+        tests:
+          - not_null
+      - name: total_estimated_co_amount
+        description: "Total estimated change order amount"
+        tests:
+          - not_null
+      - name: total_approved_co_amount
+        description: "Total approved change order amount"
+        tests:
+          - not_null
+      - name: total_committed_co_amount
+        description: "Total committed change order amount"
+        tests:
+          - not_null
+      - name: change_order_percentage
+        description: "Change order amount as a percentage of contract value"
+        tests:
+          - not_null
+      - name: processed_at
+        description: "Timestamp when the record was processed"
+        tests:
+          - not_null
+
+  - name: client_analytics
+    description: "Client analytics for business insights"
+    columns:
+      - name: client_name
+        description: "Name of the client"
+        tests:
+          - unique
+          - not_null
+      - name: total_contracts
+        description: "Total number of contracts for the client"
+        tests:
+          - not_null
+      - name: total_contract_value
+        description: "Total value of all contracts for the client"
+        tests:
+          - not_null
+      - name: avg_contract_value
+        description: "Average value of contracts for the client"
+        tests:
+          - not_null
+      - name: min_contract_value
+        description: "Minimum value of contracts for the client"
+        tests:
+          - not_null
+      - name: max_contract_value
+        description: "Maximum value of contracts for the client"
+        tests:
+          - not_null
+      - name: avg_contract_duration_days
+        description: "Average duration of contracts in days"
+        tests:
+          - not_null
+      - name: active_contracts
+        description: "Number of active contracts for the client"
+        tests:
+          - not_null
+      - name: completed_contracts
+        description: "Number of completed contracts for the client"
+        tests:
+          - not_null
+      - name: pending_contracts
+        description: "Number of pending contracts for the client"
+        tests:
+          - not_null
+      - name: cancelled_contracts
+        description: "Number of cancelled contracts for the client"
+        tests:
+          - not_null
+      - name: total_budgets
+        description: "Total number of budgets for the client"
+      - name: total_budget_amount
+        description: "Total budget amount for the client"
+      - name: total_actual_cost
+        description: "Total actual cost for the client"
+      - name: total_budget_variance
+        description: "Difference between actual costs and budget amounts"
+      - name: budget_utilization_percentage
+        description: "Percentage of budget utilized"
+      - name: total_change_orders
+        description: "Total number of change orders for the client"
+      - name: total_change_order_amount
+        description: "Total amount of change orders for the client"
+      - name: change_order_percentage
+        description: "Change order amount as a percentage of contract value"
+      - name: adjusted_contract_value
+        description: "Contract value adjusted for change orders"
+        tests:
+          - not_null
+      - name: avg_budgets_per_contract
+        description: "Average number of budgets per contract"
+        tests:
+          - not_null
+      - name: avg_change_orders_per_contract
+        description: "Average number of change orders per contract"
+        tests:
+          - not_null
+      - name: processed_at
+        description: "Timestamp when the record was processed"
+        tests:
+          - not_null
+
+  - name: time_analytics
+    description: "Time-based analytics for business insights"
+    columns:
+      - name: year
+        description: "Year of the analysis"
+        tests:
+          - not_null
+      - name: month
+        description: "Month of the analysis"
+        tests:
+          - not_null
+      - name: new_contracts
+        description: "Number of new contracts in the period"
+        tests:
+          - not_null
+      - name: new_contract_value
+        description: "Value of new contracts in the period"
+        tests:
+          - not_null
+      - name: new_budgets
+        description: "Number of new budgets in the period"
+        tests:
+          - not_null
+      - name: new_budget_amount
+        description: "Amount of new budgets in the period"
+        tests:
+          - not_null
+      - name: new_change_orders
+        description: "Number of new change orders in the period"
+        tests:
+          - not_null
+      - name: new_change_order_amount
+        description: "Amount of new change orders in the period"
+        tests:
+          - not_null
+      - name: avg_contract_duration
+        description: "Average duration of contracts in the period"
+        tests:
+          - not_null
+      - name: avg_planned_duration
+        description: "Average planned duration of budgets in the period"
+        tests:
+          - not_null
+      - name: avg_start_delay
+        description: "Average delay in starting budgets in the period"
+        tests:
+          - not_null
+      - name: budgets_per_contract
+        description: "Average number of budgets per contract in the period"
+        tests:
+          - not_null
+      - name: change_orders_per_contract
+        description: "Average number of change orders per contract in the period"
+        tests:
+          - not_null
+      - name: change_order_percentage
+        description: "Change order amount as a percentage of contract value in the period"
+        tests:
+          - not_null
+      - name: avg_change_order_amount
+        description: "Average change order amount in the period"
+        tests:
+          - not_null
+      - name: processed_at
+        description: "Timestamp when the record was processed"
+        tests:
+          - not_null
+
+  - name: contract_summary
+    description: "Summary of contract metrics"
+    columns:
+      - name: client_name
+        description: "Name of the client"
+        tests:
+          - unique
+          - not_null
+      - name: total_contracts
+        description: "Total number of contracts for the client"
+        tests:
+          - not_null
+      - name: total_contract_value
+        description: "Total value of all contracts for the client"
+        tests:
+          - not_null
+      - name: avg_contract_value
+        description: "Average value of contracts for the client"
+        tests:
+          - not_null
+      - name: earliest_contract_date
+        description: "Date of the earliest contract for the client"
+        tests:
+          - not_null
+      - name: latest_contract_end_date
+        description: "End date of the latest contract for the client"
+        tests:
+          - not_null
+      - name: total_budget_allocated
+        description: "Total budget allocated for the client"
+      - name: budget_variance
+        description: "Difference between contract value and budget"
+      - name: generated_at
+        description: "Timestamp when the summary was generated"
+        tests:
+          - not_null 

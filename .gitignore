@@ -1,0 +1,120 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+venv/
+ENV/
+env/
+.env
+
+# Airflow
+airflow.db
+airflow.cfg
+unittests.cfg
+logs/
+airflow-webserver.pid
+webserver_config.py
+
+# dbt
+target/
+dbt_modules/
+dbt_packages/
+logs/
+.user.yml
+
+# Google Cloud
+*.json
+medallion-dev-*.json
+*-service-account.json
+*-6a948fd7a82c.json
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Data files
+*.csv
+*.tsv
+*.parquet
+*.avro
+*.orc
+*.xls
+*.xlsx
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+logs/
+
+# Docker
+.docker/
+
+# Sensitive configuration files
+*config.yml
+*secrets*
+*credentials*
+*password*
+*token*
+
+# Exceptions - add files you want to include despite matching patterns above
+!requirements.txt
+!example_config.yml
+!sample_data/*.csv 
+
+# Environment variables
+.env
+.env.*
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/
+
+# macOS
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Local development
+.python-version
+.venv/
+
+transfer_all.py
+transfer_budgets.py
+transfer_co.py
+transfer_contracts.py

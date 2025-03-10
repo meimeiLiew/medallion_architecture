@@ -1,0 +1,86 @@
+version: 2
+
+sources:
+  - name: bronze
+    database: "{{ env_var('GCP_PROJECT_ID') }}"
+    schema: bronze
+    tables:
+      - name: contracts
+        description: "Raw contracts data from the bronze layer"
+        columns:
+          - name: contract_id
+            description: "Unique identifier for the contract"
+          - name: contract_name
+            description: "Name of the contract"
+          - name: client_name
+            description: "Name of the client"
+          - name: start_date
+            description: "Start date of the contract"
+          - name: end_date
+            description: "End date of the contract"
+          - name: contract_value
+            description: "Value of the contract"
+          - name: contract_status
+            description: "Status of the contract"
+      
+      - name: budgets
+        description: "Raw budgets data from the bronze layer"
+        columns:
+          - name: id
+            description: "Unique identifier for the budget"
+          - name: contractId
+            description: "Foreign key to the contracts table"
+          - name: name
+            description: "Name of the budget"
+          - name: code
+            description: "Code of the budget"
+          - name: scope
+            description: "Scope of the budget"
+          - name: plannedStartDate
+            description: "Planned start date for the budget"
+          - name: plannedEndDate
+            description: "Planned end date for the budget"
+          - name: actualStartDate
+            description: "Actual start date for the budget"
+          - name: actualEndDate
+            description: "Actual end date for the budget"
+          - name: originalAmount
+            description: "Original amount allocated in the budget"
+          - name: actualCost
+            description: "Actual cost incurred"
+          - name: createdAt
+            description: "Creation timestamp"
+          - name: updatedAt
+            description: "Last update timestamp"
+      
+      - name: co
+        description: "Raw change order data from source systems"
+        columns:
+          - name: id
+            description: "Unique identifier for the change order"
+          - name: number
+            description: "Change order number"
+          - name: name
+            description: "Name of the change order"
+          - name: scope
+            description: "Scope of the change order (in/out)"
+          - name: type
+            description: "Type of the change order"
+          - name: contractId
+            description: "Foreign key to the contracts table"
+          - name: estimated
+            description: "Estimated amount"
+          - name: proposed
+            description: "Proposed amount"
+          - name: submitted
+            description: "Submitted amount"
+          - name: approved
+            description: "Approved amount"
+          - name: committed
+            description: "Committed amount"
+          - name: createdAt
+            description: "Creation timestamp"
+          - name: updatedAt
+            description: "Last update timestamp"
+          - name: statusChangedAt
+            description: "Status change timestamp" 

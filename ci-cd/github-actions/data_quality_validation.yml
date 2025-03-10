@@ -1,0 +1,113 @@
+name: Data Quality Validation
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'bronze/data/**'
+      - 'silver/data/**'
+      - 'tests/expectations/**'
+      - 'tests/great_expectations/**'
+      - 'tests/validate_data_quality.py'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'bronze/data/**'
+      - 'silver/data/**'
+      - 'tests/expectations/**'
+      - 'tests/great_expectations/**'
+      - 'tests/validate_data_quality.py'
+  workflow_dispatch:
+    # Allow manual triggering
+
+jobs:
+  validate-data-quality:
+    runs-on: ubuntu-latest
+    
+    env:
+      GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+      BIGQUERY_DATASET_SILVER: ${{ secrets.BIGQUERY_DATASET_SILVER }}
+      BIGQUERY_DATASET_GOLD: ${{ secrets.BIGQUERY_DATASET_GOLD }}
+      GCS_BUCKET_NAME: ${{ secrets.GCS_BUCKET_NAME }}
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pandas==1.5.3 great-expectations==0.17.15 python-dotenv
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    
+    - name: Prepare sample data
+      run: |
+        # Create directory structure if it doesn't exist
+        mkdir -p bronze/data silver/data
+        
+        # Copy sample data files if they don't exist
+        if [ ! -f "bronze/data/sample_contracts.csv" ]; then
+          echo "contract_id,contract_name,client_name,start_date,end_date,contract_value,contract_status
+CONT-001,Office Renovation,Acme Corp,2023-01-01,2023-12-31,150000,executed
+CONT-002,IT Infrastructure Upgrade,TechSolutions Inc,2023-02-15,2023-08-15,75000,approved
+CONT-003,Marketing Campaign,Global Marketing,2023-03-10,2023-06-30,45000,pending
+CONT-004,Software Development,Innovative Systems,2023-04-01,2024-03-31,250000,draft
+CONT-005,Consulting Services,Business Advisors,2023-05-15,2023-11-15,60000,sent" > bronze/data/sample_contracts.csv
+        fi
+        
+        if [ ! -f "bronze/data/sample_budgets.csv" ]; then
+          echo "budget_id,contract_id,budget_name,budget_amount,fiscal_year,department
+BUD-001,CONT-001,Renovation Materials,80000,2023,Facilities
+BUD-002,CONT-001,Labor Costs,60000,2023,Facilities
+BUD-003,CONT-001,Permits and Fees,10000,2023,Legal
+BUD-004,CONT-002,Hardware,45000,2023,IT
+BUD-005,CONT-002,Software Licenses,20000,2023,IT
+BUD-006,CONT-002,Installation Services,10000,2023,IT
+BUD-007,CONT-003,Digital Advertising,25000,2023,Marketing
+BUD-008,CONT-003,Content Creation,15000,2023,Marketing
+BUD-009,CONT-003,Analytics,5000,2023,Marketing
+BUD-010,CONT-004,Development Team,150000,2023,Engineering
+BUD-011,CONT-004,QA Testing,50000,2023,Engineering
+BUD-012,CONT-004,Project Management,50000,2023,Engineering
+BUD-013,CONT-005,Strategy Consulting,40000,2023,Executive
+BUD-014,CONT-005,Implementation Support,20000,2023,Operations" > bronze/data/sample_budgets.csv
+        fi
+    
+    - name: Run Data Quality Validation
+      run: |
+        # Run the validation script
+        cd tests
+        python validate_data_quality.py
+    
+    - name: Upload Data Docs
+      uses: actions/upload-artifact@v3
+      with:
+        name: data-docs
+        path: tests/great_expectations/uncommitted/data_docs/
+        retention-days: 30
+    
+    - name: Generate Data Quality Report
+      run: |
+        # Create a simple report
+        echo "# Data Quality Validation Report" > data_quality_report.md
+        echo "## Date: $(date)" >> data_quality_report.md
+        echo "## Commit: ${{ github.sha }}" >> data_quality_report.md
+        echo "## Repository: ${{ github.repository }}" >> data_quality_report.md
+        echo "## Branch: ${{ github.ref }}" >> data_quality_report.md
+        echo "## Workflow: ${{ github.workflow }}" >> data_quality_report.md
+        echo "## Status: Completed" >> data_quality_report.md
+        
+        # Add link to data docs
+        echo "## Data Docs" >> data_quality_report.md
+        echo "Data docs have been generated and are available as an artifact in this workflow run." >> data_quality_report.md
+    
+    - name: Upload Data Quality Report
+      uses: actions/upload-artifact@v3
+      with:
+        name: data-quality-report
+        path: data_quality_report.md
+        retention-days: 30 

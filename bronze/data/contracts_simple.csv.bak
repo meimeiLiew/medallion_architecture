@@ -1,0 +1,4 @@
+contract_id,contract_name,client_name,start_date,end_date,contract_value,contract_status
+54c38b9b-73ee-40b8-9af5-f25eaa8ff342,Noice and Vibration Services,Company A,2023-03-10,2025-02-18,37400,executed
+77e89ba4-ea2b-4f2a-af27-c14a08bb5cb9,Road Header Guidance System,Company B,2023-04-10,2025-02-20,1264863.39,executed
+a42653c2-3ccc-402c-a161-259c98c16ff4,Temporary Works Design Services,Company C,2023-05-10,2025-02-18,163270,executed

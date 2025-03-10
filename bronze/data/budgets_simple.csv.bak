@@ -1,0 +1,6 @@
+id,contractId,name,code,scope,plannedStartDate,plannedEndDate,actualStartDate,actualEndDate,originalAmount,actualCost,createdAt,updatedAt
+B001,6ace6f70-036b-4af0-bee6-e4296c5e7e4f,Budget 1,BUD001,budgetAndCost,2024-01-01,2024-12-31,2024-01-15,,50000,25000,2023-12-15,2024-02-01
+B002,54c38b9b-73ee-40b8-9af5-f25eaa8ff342,Budget 2,BUD002,budgetAndCost,2024-02-01,2024-11-30,2024-02-10,,75000,40000,2023-12-20,2024-02-15
+B003,0210143a-a61a-4b5e-9378-30d2cbda8e45,Budget 3,BUD003,budgetAndCost,2024-03-01,2024-10-31,2024-03-05,,100000,60000,2024-01-10,2024-03-10
+B004,ad1ed4a6-0f1d-44d9-b0c7-547e4ed1aa3d,Budget 4,BUD004,budgetAndCost,2024-04-01,2024-09-30,2024-04-10,,125000,70000,2024-02-15,2024-04-20
+B005,57a1ef99-efc4-4633-b5cf-9669719fc07e,Budget 5,BUD005,budgetAndCost,2024-05-01,2024-08-31,2024-05-05,,150000,80000,2024-03-20,2024-05-15 
