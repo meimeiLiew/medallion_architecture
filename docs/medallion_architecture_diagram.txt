@@ -1,0 +1,89 @@
+# Medallion Architecture Diagram Description
+
+## Overview
+The diagram should illustrate the three-layer medallion architecture (Bronze, Silver, Gold) with data flowing through the pipeline, showing the technologies used at each stage.
+
+## Components to Include
+
+### Data Sources
+- CSV files (contracts, budgets, change orders)
+- External systems
+
+### Bronze Layer (Raw Data)
+- Google Cloud Storage (for raw file storage)
+- BigQuery Bronze Dataset
+- Raw tables with original schema
+
+### Silver Layer (Cleaned Data)
+- dbt transformations
+- Data validation with tests
+- BigQuery Silver Dataset
+- Cleaned tables with proper data types
+
+### Gold Layer (Business Ready)
+- dbt transformations with business logic
+- Aggregated analytics tables
+- BigQuery Gold Dataset
+- Reporting-ready views
+
+### Orchestration
+- Airflow DAG controlling the entire pipeline
+- Task dependencies
+
+## Flow Direction
+The flow should move from left to right:
+1. Data sources → Bronze Layer
+2. Bronze Layer → Silver Layer
+3. Silver Layer → Gold Layer
+4. Gold Layer → Analytics/Reporting
+
+## Color Scheme Suggestion
+- Bronze Layer: Copper/Bronze color (#CD7F32)
+- Silver Layer: Silver color (#C0C0C0)
+- Gold Layer: Gold color (#FFD700)
+- Arrows: Blue (#4285F4)
+- Background: Light gray or white
+
+## Technologies to Highlight
+- Apache Airflow (orchestration)
+- dbt (transformations)
+- Google Cloud Storage (raw storage)
+- BigQuery (data warehouse)
+- Great Expectations (data validation)
+
+## Layout Suggestion
+```
++------------------+     +------------------+     +------------------+     +------------------+
+|                  |     |                  |     |                  |     |                  |
+|   Data Sources   | --> |   Bronze Layer   | --> |   Silver Layer   | --> |    Gold Layer    |
+|                  |     |                  |     |                  |     |                  |
++------------------+     +------------------+     +------------------+     +------------------+
+       |                        |                        |                        |
+       v                        v                        v                        v
++------------------+     +------------------+     +------------------+     +------------------+
+|    CSV Files     |     |  Google Cloud    |     |  dbt Models &    |     |  Analytics &     |
+|  External Data   |     |    Storage       |     |     Tests        |     |   Reporting      |
++------------------+     +------------------+     +------------------+     +------------------+
+                         |                  |     |                  |     |                  |
+                         |    BigQuery      |     |    BigQuery      |     |    BigQuery      |
+                         |  Bronze Dataset  |     |  Silver Dataset  |     |   Gold Dataset   |
+                         +------------------+     +------------------+     +------------------+
+                                                                                    |
+                                                                                    v
+                                                                           +------------------+
+                                                                           |    Business      |
+                                                                           |   Intelligence   |
+                                                                           +------------------+
+
++-------------------------------------------------------------------------------------------------------+
+|                                                                                                       |
+|                                  Apache Airflow Orchestration                                         |
+|                                                                                                       |
++-------------------------------------------------------------------------------------------------------+
+```
+
+## Additional Notes
+- Include icons for each technology (Airflow, dbt, GCS, BigQuery)
+- Show data validation checkpoints between layers
+- Illustrate the transformation complexity increasing from Bronze to Gold
+- Include a legend explaining the components 
