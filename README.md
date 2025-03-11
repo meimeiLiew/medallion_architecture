@@ -24,6 +24,26 @@ The pipeline orchestrates the movement and transformation of data through these 
 - **BigQuery**: Serves as the data warehouse for all layers
 - **Great Expectations**: Validates data quality
 
+## Data Model
+
+The following diagram illustrates the data model across the three layers, showing how data is transformed from raw format to analytics-ready tables:
+
+![Data Model Diagram](docs/data_model_diagram.png)
+
+### Bronze Layer Tables
+- **contracts_bronze**: Raw contract data with string data types
+- **budgets_bronze**: Raw budget data with string data types
+- **change_orders_bronze**: Raw change order data with string data types
+
+### Silver Layer Tables
+- **contracts_silver**: Cleaned contract data with proper data types
+- **budgets_silver**: Cleaned budget data with proper data types
+- **change_orders_silver**: Cleaned change order data with proper data types
+
+### Gold Layer Tables
+- **contract_analytics**: Contract-level analytics with aggregated metrics
+- **project_analytics**: Project-level analytics with cross-table metrics
+
 ## Pipeline Flow
 
 1. Raw data is uploaded to Google Cloud Storage
