@@ -112,10 +112,4 @@ If the dbt models fail with validation errors, you can:
 2. Modify the `run_dbt_commands` function in the DAG to continue despite test failures
 3. Fix data quality issues in the source data
 
-## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details. 
