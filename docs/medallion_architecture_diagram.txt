@@ -1,4 +1,4 @@
-# Medallion Architecture Diagram Description
+# Medallion Architecture 
 
 ## Overview
 The diagram should illustrate the three-layer medallion architecture (Bronze, Silver, Gold) with data flowing through the pipeline, showing the technologies used at each stage.
